@@ -37,7 +37,7 @@ export function FocusPointerWrapper({
                         }}
                         exit={{ opacity: 0, x: -10 }}
                         transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                        className="absolute -left-9 top-1/2 -translate-y-1/2 z-10 hidden sm:flex items-center justify-center pointer-events-none"
+                        className="absolute -left-9 top-1/2 -translate-y-1/2 z-10 flex items-center justify-center pointer-events-none"
                     >
                         <motion.div
                             animate={{ x: [0, -4, 0] }}

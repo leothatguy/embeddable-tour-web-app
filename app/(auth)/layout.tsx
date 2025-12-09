@@ -4,7 +4,6 @@ import { ArrowLeftIcon } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { toast } from "sonner"
 
 export default async function AuthPagesLayout({
     children,
@@ -15,13 +14,12 @@ export default async function AuthPagesLayout({
 
     // If user is already logged in, redirect to dashboard
     if (user) {
-        toast.info(`You are already logged in as ${user.email}. Logout first to login as a different user.`)
-        redirect('/dashboard')
+        redirect('/dashboard?loggedIn=true')
     }
 
     return <div className="min-h-screen w-screen flex bg-background p-5 md:p-20">
         {/* Left Side - Form */}
-        <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
+        <div className="w-full lg:w-1/2 flex items-center justify-center p-0 md:p-8">
             <div className="w-full max-w-md space-y-8">
                 
                 <Button asChild variant="ghost">
@@ -46,7 +44,7 @@ export default async function AuthPagesLayout({
 
 
         {/* Right Side - Hero Image */}
-        <div className="hidden lg:flex lg:w-1/2 relative items-center justify-center overflow-hidden rounded-lg max-h-[90vh]">
+        <div className="hidden lg:relative lg:flex lg:w-1/2 items-center justify-center overflow-hidden rounded-lg max-h-[90vh]">
             <Image
                 src="/images/auth-hero.jpg"
                 alt="Authentication Hero"

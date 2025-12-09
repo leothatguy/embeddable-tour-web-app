@@ -1,4 +1,3 @@
-import React from "react";
 import DashboardTitle from "../_components/dashboard-title";
 import TourStatsCard from "../_components/tour-stats-card";
 import TourChart from "../_components/tour-chart";

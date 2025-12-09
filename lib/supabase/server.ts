@@ -18,14 +18,14 @@ export async function createServerSupabaseClient() {
           try {
             cookieStore.set({ name, value, ...options })
           } catch (error) {
-            // Handle error in Server Component
+            console.error('Failed to set cookie:', error)
           }
         },
         remove(name: string, options: CookieOptions) {
           try {
             cookieStore.set({ name, value: '', ...options })
           } catch (error) {
-            // Handle error in Server Component
+            console.error('Failed to remove cookie:', error)
           }
         },
       },

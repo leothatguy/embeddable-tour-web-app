@@ -117,10 +117,10 @@ export default function SignupPageContent() {
               disabled={loading || success}
               className="h-11"
             />
-            <button
-              type="button"
+            <button type="button"
               className="absolute right-2 top-1/2 -translate-y-1/2"
               onClick={() => setShowPassword(!showPassword)}
+              aria-label={showPassword ? "Hide password" : "Show password"}
             >
               {showPassword ? (
                 <EyeIcon className="h-5 w-5" />

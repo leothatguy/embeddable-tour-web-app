@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#18181b", // zing-950/black
+  themeColor: "#18181b", // zinc-950/black
 };
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     default: "Tourify - Embeddable Product Tours",
     template: "%s | Tourify",
   },
-  description: "Create beautiful, embeddable product tours and onboarding flows for your web app in minutes. easy to integrate, highly customizable, and designed for modern SaaS.",
+  description: "Create beautiful, embeddable product tours and onboarding flows for your web app in minutes. Easy to integrate, highly customizable, and designed for modern SaaS.",
   keywords: [
     "product tour",
     "onboarding",

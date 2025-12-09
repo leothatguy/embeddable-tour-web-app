@@ -22,7 +22,7 @@
     "@radix-ui/react-tooltip": "^1.2.8",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
-    "@supabase-js/source": "github:supabase/supabase-js",
+    "@supabase/supabase-js": "^2.47.10",
     "@supabase/ssr": "^0.8.0",
     "@types/react-syntax-highlighter": "^15.5.13",
     "class-variance-authority": "^0.7.1",

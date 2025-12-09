@@ -47,12 +47,12 @@ importers:
       '@react-three/fiber':
         specifier: ^9.4.2
         version: 9.4.2(@types/react@19.2.7)(immer@11.0.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(three@0.181.2)
-      '@supabase-js/source':
-        specifier: github:supabase/supabase-js
-        version: https://codeload.github.com/supabase/supabase-js/tar.gz/a9dffc2da140c16d3a77716d0ec28a506b3315df
       '@supabase/ssr':
         specifier: ^0.8.0
         version: 0.8.0(@supabase/supabase-js@2.87.0)
+      '@supabase/supabase-js':
+        specifier: ^2.47.10
+        version: 2.87.0
       '@types/react-syntax-highlighter':
         specifier: ^15.5.13
         version: 15.5.13
@@ -1008,10 +1008,6 @@ packages:
 
   '@standard-schema/utils@0.3.0':
     resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
-
-  '@supabase-js/source@https://codeload.github.com/supabase/supabase-js/tar.gz/a9dffc2da140c16d3a77716d0ec28a506b3315df':
-    resolution: {tarball: https://codeload.github.com/supabase/supabase-js/tar.gz/a9dffc2da140c16d3a77716d0ec28a506b3315df}
-    version: 0.0.0
 
   '@supabase/auth-js@2.87.0':
     resolution: {integrity: sha512-Otv/fjkyev9cH55VoZHwbzDd5N8y1SNREqDpzE8cqI2KnlHAkr0g6ZWv7d8elVKhS3le09xvAeRaoONGaRc8sA==}
@@ -3970,8 +3966,6 @@ snapshots:
   '@standard-schema/spec@1.0.0': {}
 
   '@standard-schema/utils@0.3.0': {}
-
-  '@supabase-js/source@https://codeload.github.com/supabase/supabase-js/tar.gz/a9dffc2da140c16d3a77716d0ec28a506b3315df': {}
 
   '@supabase/auth-js@2.87.0':
     dependencies:
