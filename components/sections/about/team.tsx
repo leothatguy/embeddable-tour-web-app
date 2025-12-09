@@ -6,8 +6,8 @@ import Image from "next/image";
 
 const teamMembers = [
   {
-    name: "Alex Johnson",
-    role: "CEO & Founder",
+    name: "Frances Ejiro",
+    role: "Frontend Engineer",
     bio: "Former UX lead at Google with 10+ years in product design",
     imageColor: "oklch(0.8 0.2 70)",
     social: {
@@ -17,7 +17,7 @@ const teamMembers = [
     },
   },
   {
-    name: "Sarah Chen",
+    name: "Chief Leo",
     role: "Head of Engineering",
     bio: "Ex-Facebook engineer specializing in frontend architecture",
     imageColor: "oklch(0.85 0.18 75)",
@@ -28,8 +28,8 @@ const teamMembers = [
     },
   },
   {
-    name: "Marcus Rivera",
-    role: "Product Lead",
+    name: "David Uwagbale",
+    role: "Fullstack Developer",
     bio: "Product manager with 8+ years at top SaaS companies",
     imageColor: "oklch(0.9 0.18 80)",
     social: {
@@ -39,34 +39,13 @@ const teamMembers = [
     },
   },
   {
-    name: "Priya Patel",
-    role: "Head of Design",
+    name: "Tolulope Ilesanmi",
+    role: "Frontend Engineer",
     bio: "Award-winning designer focused on creating delightful experiences",
     imageColor: "oklch(0.8 0.15 85)",
     social: {
       linkedin: "#",
       dribbble: "#",
-      email: "#",
-    },
-  },
-  {
-    name: "David Kim",
-    role: "Growth Lead",
-    bio: "Marketing expert who helped scale 3 startups to unicorn status",
-    imageColor: "oklch(0.85 0.15 90)",
-    social: {
-      linkedin: "#",
-      twitter: "#",
-      email: "#",
-    },
-  },
-  {
-    name: "Emma Wilson",
-    role: "Customer Success",
-    bio: "Passionate about helping customers achieve their goals",
-    imageColor: "oklch(0.9 0.15 95)",
-    social: {
-      linkedin: "#",
       email: "#",
     },
   },
@@ -101,7 +80,7 @@ export function TeamSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           {teamMembers.map((member, index) => (
             <motion.div
               key={member.name}
@@ -125,8 +104,8 @@ export function TeamSection() {
                 <div className="relative glass-effect p-8 rounded-2xl">
                   {/* Avatar placeholder with animation */}
                   <motion.div
-                    className="w-24 h-24 rounded-full mx-auto mb-6 relative overflow-hidden"
-                    style={{ background: member.imageColor }}
+                    className="w-24 h-24 rounded-full mx-auto mb-6 relative overflow-hidden border bg-white/10"
+                    
                     whileHover={{ scale: 1.1 }}
                     transition={{ type: "spring", stiffness: 300 }}
                   >

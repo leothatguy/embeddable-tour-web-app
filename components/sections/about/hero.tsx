@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
+    <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden py-10">
       <div className="absolute inset-0 bg-gradient-to-br from-amber-900/10 via-black to-amber-900/5" />
       
       <div className="container mx-auto px-4 relative z-10">
@@ -81,7 +81,7 @@ export function HeroSection() {
                     <stat.icon className="h-6 w-6" style={{ color: "oklch(0.8 0.2 70)" }} />
                   </div>
                 </div>
-                <div className="text-4xl font-bold gradient-text mb-2">
+                <div className="text-4xl font-bold text-gray-300 mb-2">
                   {stat.value}
                 </div>
                 <div className="opacity-70">{stat.label}</div>

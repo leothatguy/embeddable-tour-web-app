@@ -39,7 +39,7 @@ export function CTA() {
   return (
     <section className="py-24 relative overflow-hidden">
       {/* Animated background */}
-      <div className="absolute inset-0 pointer-events-none z-0">
+      {/* <div className="absolute inset-0 pointer-events-none z-0">
         {bubbles.map((bubble, i) => (
           <motion.div
             key={i}
@@ -63,7 +63,7 @@ export function CTA() {
             }}
           />
         ))}
-      </div>
+      </div> */}
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
@@ -102,7 +102,7 @@ export function CTA() {
 
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Ready to Create{" "}
-              <span className="gradient-text">Magical Experiences?</span>
+              <span className="gradient-text">Magical</span> Experiences?
             </h2>
 
             <p className="text-xl opacity-80 mb-8 max-w-2xl mx-auto">
@@ -126,10 +126,9 @@ export function CTA() {
               <Button
                 size="lg"
                 variant="outline"
-                className="text-lg px-8 py-6"
+                className="text-lg px-8 py-6 text-accent hover:text-accent-foreground transition-transform"
                 style={{
-                  borderColor: "oklch(0.8 0.2 70 / 0.3)",
-                  color: "oklch(0.8 0.2 70)",
+                  borderColor: "oklch(0.8 0.2 70 / 0.3)"
                 }}
               >
                 <Rocket className="mr-2 h-5 w-5" />
