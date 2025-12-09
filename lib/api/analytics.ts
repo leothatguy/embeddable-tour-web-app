@@ -163,7 +163,7 @@ export async function getCompletionTrend(): Promise<CompletionTrend[]> {
 
     analytics?.forEach((record: { created_at: string }) => {
         const date = new Date(record.created_at)
-        const dayName = days[date.getDay()]
+        const dayName = days[(date.getDay() + 6) % 7]
         completionByDay[dayName] = (completionByDay[dayName] || 0) + 1
     })
 
