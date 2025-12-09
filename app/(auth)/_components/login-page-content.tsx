@@ -1,34 +1,32 @@
+"use client";
 
-'use client'
-
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { signIn } from '@/lib/supabase/auth'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react'
-import { AuthCard } from './auth-card'
-import { FocusPointerWrapper } from '@/components/ui/focus-pointer-wrapper'
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { signIn } from "@/lib/supabase/auth";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { EyeIcon, EyeOffIcon, Loader2 } from "lucide-react";
+import { AuthCard } from "./auth-card";
+import { FocusPointerWrapper } from "@/components/ui/focus-pointer-wrapper";
 
 export default function LoginPageContent() {
-  const router = useRouter()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [showPassword, setShowPassword] = useState(false)
-
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
 
     try {
-      const { data, error } = await signIn(email, password)
+      const { data, error } = await signIn(email, password);
 
       if (error) {
         if (error.message.toLowerCase().includes("invalid login credentials")){
@@ -41,14 +39,14 @@ export default function LoginPageContent() {
       }
 
       if (data.user) {
-        router.push('/dashboard')
-        router.refresh()
+        router.push("/dashboard");
+        router.refresh();
       }
     } catch {
       setError('An unexpected error occurred. Please try again.')
       setLoading(false)
     }
-  }
+  };
 
   return (
     <AuthCard
@@ -86,7 +84,7 @@ export default function LoginPageContent() {
           <FocusPointerWrapper>
             <Input
               id="password"
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -94,25 +92,24 @@ export default function LoginPageContent() {
               disabled={loading}
               className="h-11"
             />
-            <button type="button"
+            <button
+              type="button"
               className="absolute right-2 top-1/2 -translate-y-1/2"
               onClick={() => setShowPassword(!showPassword)}
               aria-label={showPassword ? "Hide password" : "Show password"}
             >
-              {
-                showPassword ? (
-                  <EyeIcon className="h-5 w-5" />
-                ) : (
-                  <EyeOffIcon className="h-5 w-5" />
-                )
-              }
+              {showPassword ? (
+                <EyeIcon className="h-5 w-5" />
+              ) : (
+                <EyeOffIcon className="h-5 w-5" />
+              )}
             </button>
           </FocusPointerWrapper>
         </div>
 
         <Button
           type="submit"
-          className="w-full h-11 bg-amber-400 hover:bg-amber-500 text-black font-medium"
+          className="w-full h-11 bg-amber-400 hover:accent-bg text-black font-medium"
           disabled={loading}
         >
           {loading ? (
@@ -121,7 +118,7 @@ export default function LoginPageContent() {
               Logging in...
             </>
           ) : (
-            'Submit'
+            "Submit"
           )}
         </Button>
       </form>
@@ -139,5 +136,5 @@ export default function LoginPageContent() {
         </Link>
       </div>
     </AuthCard>
-  )
+  );
 }
