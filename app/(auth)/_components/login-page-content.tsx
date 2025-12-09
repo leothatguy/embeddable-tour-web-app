@@ -29,18 +29,22 @@ export default function LoginPageContent() {
       const { data, error } = await signIn(email, password);
 
       if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
+        if (error.message.toLowerCase().includes("invalid login credentials")){
+          setError("Incorrect email address and/or password")
+        } else {
+        setError(error.message)
+        }
+        setLoading(false)
+        return
       }
 
       if (data.user) {
         router.push("/dashboard");
         router.refresh();
       }
-    } catch (err) {
-      setError("An unexpected error occurred. Please try again.");
-      setLoading(false);
+    } catch {
+      setError('An unexpected error occurred. Please try again.')
+      setLoading(false)
     }
   };
 
@@ -121,7 +125,9 @@ export default function LoginPageContent() {
 
       {/* Footer */}
       <div className="text-center text-sm">
-        <span className="text-muted-foreground">Don't have an account? </span>
+        <span className="text-muted-foreground">
+          Don&apos;t have an account?{' '}
+        </span>
         <Link
           href="/signup"
           className="font-medium text-amber-600 hover:text-amber-700"
