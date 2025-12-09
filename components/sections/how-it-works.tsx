@@ -68,7 +68,7 @@ export function HowItWorksSection() {
 
         <div className="relative max-w-6xl mx-auto">
           {/* Connecting Line */}
-          <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 transform -translate-y-1/2 hidden lg:block" />
+          {/* <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-amber-500 via-amber-400 to-amber-600 transform -translate-y-1/2 hidden lg:block" /> */}
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 lg:gap-4">
             {steps.map((step, index) => (
@@ -84,7 +84,7 @@ export function HowItWorksSection() {
                   <div className="flex flex-col items-center text-center">
                     {/* Number Badge */}
                     <div className="relative mb-6">
-                      <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full blur-lg opacity-50" />
+                      {/* <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full blur-lg opacity-50" /> */}
                       <div className="relative h-16 w-16 rounded-full bg-gradient-to-br from-black to-gray-900 border-2 border-amber-500/30 flex items-center justify-center">
                         <span className="text-2xl font-bold gradient-text">
                           {step.number}
@@ -93,9 +93,9 @@ export function HowItWorksSection() {
                     </div>
 
                     {/* Icon */}
-                    <div className={`mb-4 p-4 rounded-2xl bg-gradient-to-br ${step.color}`}>
+                    {/* <div className={`mb-4 p-4 rounded-2xl bg-amber-500/10 ${step.color}`}>
                       {step.icon}
-                    </div>
+                    </div> */}
 
                     {/* Content */}
                     <h3 className="text-xl font-bold mb-3 text-ivory">

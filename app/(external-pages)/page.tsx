@@ -23,7 +23,7 @@ export default function Home() {
       <DocumentationSection />
       <PricingSection />
       <ContactSection />
-      <Footer />
+     
     </main>
   );
 }

@@ -78,7 +78,7 @@ export function HeroSection() {
             <Button
               size="lg"
               variant="outline"
-              className="border-amber-500 text-amber-500 hover:bg-amber-500/10 font-bold text-lg px-8 py-6"
+              className="cursor-pointer border-amber-500 text-amber-500 hover:bg-amber-500/10 hover:text-amber-600 font-bold text-lg px-8 py-6"
             >
               <Zap className="mr-2 h-5 w-5" />
               Watch Demo
@@ -109,7 +109,7 @@ export function HeroSection() {
                     <stat.icon className="h-6 w-6 text-amber-500" />
                   </div>
                 </div>
-                <div className="text-4xl font-bold gradient-text mb-2">
+                <div className="text-4xl font-bold text-gray-300 mb-2">
                   {stat.value}
                 </div>
                 <div className="text-ivory/60">{stat.label}</div>
