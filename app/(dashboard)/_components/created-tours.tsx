@@ -10,7 +10,6 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { TourFormValues } from "../_schemas/tour-schema";
 import EmptyState from "./empty-state";
 import {
   CopyIcon,
@@ -26,29 +25,36 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import DeleteTourModal from "./delete-tour-modal";
+import { useTours } from "@/hooks/use-tours";
+import { getEmbedScript } from "@/lib/utils";
+import { toast } from "sonner";
+
+interface TourResponse {
+  id: string;
+  name: string;
+  description: string;
+  steps: {
+    id: string;
+    order_number: number;
+    title: string;
+    description: string;
+  }[];
+}
 
 const CreatedTours: React.FC = () => {
   const router = useRouter();
 
-  // 1. Initialize tours state from localStorage
-  const [tours, setTours] = useState<TourFormValues[]>(() => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("tours");
-      return stored ? JSON.parse(stored) : [];
+  const { tours, loading, refetch: refetchTours, deleteTour } = useTours()
+  const [tourToDelete, setTourToDelete] = useState<TourResponse | null>(null);
+
+  const handleDelete = async (id: string) => {
+    const success = await deleteTour(id)
+    if (success) {
+      refetchTours()
+      setTourToDelete(null)
+      toast.success("Tour deleted successfully!") 
     }
-    return [];
-  });
-
-  // 2. State to track which tour is being deleted
-  const [tourToDelete, setTourToDelete] = useState<TourFormValues | null>(null);
-
-  // 3. Centralized delete function
-  const handleDelete = (id: string) => {
-    const updated = tours.filter((t) => t.id !== id);
-    setTours(updated);
-    localStorage.setItem("tours", JSON.stringify(updated));
-    setTourToDelete(null);
-  };
+  }
 
   // 4. Navigation handlers
   const handleViewDetails = (tourId: string) => {
@@ -60,10 +66,12 @@ const CreatedTours: React.FC = () => {
   };
 
   const handleCopyEmbed = (tourId: string) => {
-    const embedCode = `<script src="https://your-app.com/embed/${tourId}.js"></script>`;
+    const embedCode = getEmbedScript(tourId); 
     navigator.clipboard.writeText(embedCode);
     alert("Embed code copied to clipboard!");
   };
+
+  if (loading) return <div>Loading...</div>;
 
   if (tours.length === 0) return <EmptyState />;
 

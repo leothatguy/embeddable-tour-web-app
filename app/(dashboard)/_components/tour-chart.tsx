@@ -56,36 +56,33 @@ const TourChart = () => {
   //   const [deviceData, setDeviceData] = useState<DeviceAnalytics[]>([]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      // Fake API Data
-      setCompletionTrend([
-        { day: "Mon", completed: 14 },
-        { day: "Tue", completed: 21 },
-        { day: "Wed", completed: 18 },
-        { day: "Thu", completed: 26 },
-        { day: "Fri", completed: 32 },
-        { day: "Sat", completed: 25 },
-        { day: "Sun", completed: 19 },
-      ]);
+    async function fetchData() {
+      try {
+        // Fetch completion trend
+        const trendResponse = await fetch('/api/analytics/completion-trend')
+        const trendData = await trendResponse.json()
+        setCompletionTrend(trendData.trend)
 
-      setStepData([
-        { step: "Step 1", completed: 120, skipped: 14 },
-        { step: "Step 2", completed: 118, skipped: 9 },
-        { step: "Step 3", completed: 112, skipped: 20 },
-        { step: "Step 4", completed: 95, skipped: 30 },
-        { step: "Step 5", completed: 80, skipped: 25 },
-      ]);
+        // Fetch step analytics
+        const stepResponse = await fetch('/api/analytics/step-analytics')
+        const stepData = await stepResponse.json()
 
-      //   setDeviceData([
-      //     { name: "Mobile", value: 64 },
-      //     { name: "Desktop", value: 36 },
-      //   ]);
+        // Transform to match chart format
+        const formattedSteps = stepData.analytics.slice(0, 5).map((item: StepAnalytics) => ({
+          step: item.step,
+          completed: item.completed,
+          skipped: item.skipped,
+        }))
+        setStepData(formattedSteps)
+      } catch (error) {
+        console.error('Failed to fetch chart data:', error)
+      } finally {
+        setLoading(false)
+      }
+    }
 
-      setLoading(false);
-    }, 1000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    fetchData()
+  }, [])
 
   /* -----------------------------------------------
      LOADING STATE (Skeleton)

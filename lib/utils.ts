@@ -10,3 +10,12 @@ const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[
 export function isUUID(value: string) {
   return uuidRegex.test(value);
 }
+
+
+export function getEmbedScript(tourId: string) {
+  if (!process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL) {
+    throw new Error("Embed Script URL is not defined");
+  }
+  const embedScriptUrl = process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL + "?tour=" + tourId;
+  return `<script src="${embedScriptUrl}"></script>`;
+}

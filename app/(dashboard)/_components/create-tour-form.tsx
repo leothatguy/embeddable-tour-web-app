@@ -53,48 +53,46 @@ const CreateTourForm: React.FC<Props> = ({
     name: "steps",
   });
 
-  const onSubmit = (data: TourFormValues) => {
-    setLoading(true);
 
-    setTimeout(() => {
-      try {
-        const storedTours = localStorage.getItem("tours");
-        const tours: TourFormValues[] = storedTours
-          ? JSON.parse(storedTours)
-          : [];
+  const onSubmit = async (data: TourFormValues) => {
+    setLoading(true)
 
-        if (isEditMode && existingTour) {
-          // Update existing tour
-          const tourIndex = tours.findIndex((t) => t.id === existingTour.id);
-          if (tourIndex !== -1) {
-            // Preserve the original ID and update the tour
-            tours[tourIndex] = { ...data, id: existingTour.id };
-            localStorage.setItem("tours", JSON.stringify(tours));
-            alert("Tour updated successfully!");
-          } else {
-            alert("Tour not found!");
-            setLoading(false);
-            return;
-          }
-        } else {
-          // Create new tour
-          tours.push(data);
-          localStorage.setItem("tours", JSON.stringify(tours));
-          alert("Tour created successfully!");
-        }
+    try {
+      const endpoint = isEditMode ? `/api/tours/${existingTour?.id}` : '/api/tours'
+      const method = isEditMode ? 'PATCH' : 'POST'
 
-        setLoading(false);
-        if (onTourCreated) onTourCreated(data);
+      const response = await fetch(endpoint, {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          description: data.description,
+          steps: data.steps.map((step, index) => ({
+            title: step.title,
+            description: step.description,
+            order: index + 1,
+          })),
+        }),
+      })
 
-        // Navigate back to tours list
-        router.push("/tours");
-      } catch (error) {
-        console.error("Failed to save tour:", error);
-        alert("Failed to save tour. Please try again.");
-        setLoading(false);
+      if (!response.ok) {
+        throw new Error('Failed to save tour')
       }
-    }, 1000);
-  };
+
+      const result = await response.json()
+
+      if (onTourCreated) onTourCreated(result.tour)
+
+      router.push('/tours')
+    } catch (error) {
+      console.error('Failed to save tour:', error)
+      alert('Failed to save tour. Please try again.')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <article className="w-full mt-6 max-w-5xl mx-auto">

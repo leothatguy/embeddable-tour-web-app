@@ -13,6 +13,9 @@ import {
   CircleSlash2Icon,
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
+
 
 interface Stat {
   title: string;
@@ -22,53 +25,71 @@ interface Stat {
 const TourStatsCard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Stat[]>([]);
+  // fid loggedIn inqueryparams
+  const searchParams = useSearchParams();
+  const loggedIn = searchParams.get("loggedIn");
 
-  useEffect(() => {
-    // Simulate API call delay
-    const timeout = setTimeout(() => {
+  
+useEffect(() => {
+  async function fetchStats() {
+    try {
+      const response = await fetch('/api/analytics/stats')
+      const data = await response.json()
+      
+      // Map the stats to the card format
       setStats([
         {
           title: "Total Tours Created",
-          value: 128,
+          value: data.stats.totalToursCreated,
           icon: MapIcon,
         },
         {
           title: "Total Tours Completed",
-          value: 102,
+          value: data.stats.totalToursCompleted,
           icon: CheckCircle2Icon,
         },
         {
           title: "Completion Rate",
-          value: "79%",
+          value: `${data.stats.completionRate}%`,
           icon: PercentIcon,
         },
         {
           title: "Steps Skipped",
-          value: 34,
+          value: data.stats.stepsSkipped,
           icon: ForwardIcon,
         },
         {
           title: "Average Tour Duration",
-          value: "12 mins",
+          value: `${data.stats.averageDurationInMinutes} mins`,
           icon: TimerIcon,
         },
         {
           title: "Active Tours Today",
-          value: 14,
+          value: data.stats.activeToursToday,
           icon: FlagIcon,
         },
         {
           title: "Abandon Rate",
-          value: "21%",
+          value: `${data.stats.abandonRate}%`,
           icon: CircleSlash2Icon,
         },
-      ]);
+      ])
+    } catch (error) {
+      console.error('Failed to fetch stats:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
 
-      setLoading(false);
-    }, 2000);
+  fetchStats()
+}, [])
 
-    return () => clearTimeout(timeout);
-  }, []);
+// show already loggedin toast
+useEffect(() => {
+  if (loggedIn) {
+    toast.success(`You are already logged in as ${loggedIn}. Logout first to login to another account`)
+  }
+}, [loggedIn])
 
   return (
     <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-4">

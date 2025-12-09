@@ -1,43 +1,23 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import CreateTourForm from "../../../_components/create-tour-form";
-import { TourFormValues } from "../../../_schemas/tour-schema";
+import { useTourByID } from "@/hooks/use-tours";
+import { toast } from "sonner";
 
 const EditTourPage: React.FC = () => {
   const params = useParams();
   const router = useRouter();
   const id = Array.isArray(params.id) ? params.id[0] : (params.id as string);
-
-  const [tour, setTour] = useState<TourFormValues | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { tour, loading, error } = useTourByID(id);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !id) return;
-
-    try {
-      const storedTours = localStorage.getItem("tours");
-      if (!storedTours) {
-        router.push("/tours");
-        return;
-      }
-
-      const tours: TourFormValues[] = JSON.parse(storedTours);
-      const foundTour = tours.find((t) => t.id === id);
-
-      if (foundTour) {
-        setTour(foundTour);
-      } else {
-        router.push("/tours");
-      }
-    } catch (error) {
-      console.error("Failed to load tour:", error);
+    if (!tour && error) {
+      toast.error(error);
       router.push("/tours");
-    } finally {
-      setLoading(false);
     }
-  }, [id, router]);
+  }, [tour, router, error]);
 
   if (loading) {
     return (
@@ -51,7 +31,17 @@ const EditTourPage: React.FC = () => {
     return null;
   }
 
-  return <CreateTourForm existingTour={tour} mode="edit" />;
+  return <CreateTourForm existingTour={{
+    id: tour.id,
+    name: tour.name,
+    description: tour.description,
+    steps: tour.steps.map((step) => ({
+      id: step.id,
+      order: step.order_number,
+      title: step.title,
+      description: step.description,
+    })),
+  }} mode="edit" />;
 };
 
 export default EditTourPage;
