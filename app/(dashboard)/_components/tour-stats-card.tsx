@@ -25,7 +25,7 @@ interface Stat {
 const TourStatsCard = () => {
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState<Stat[]>([]);
-  // fid loggedIn inqueryparams
+  // find loggedIn query params
   const searchParams = useSearchParams();
   const loggedIn = searchParams.get("loggedIn");
 

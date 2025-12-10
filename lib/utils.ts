@@ -20,6 +20,6 @@ export function getEmbedScript(tourId: string) {
   if (!process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL) {
     throw new Error("Embed Script URL is not defined");
   }
-  const embedScriptUrl = process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL + "?tour=" + tourId;
+  const embedScriptUrl = process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL + "?tour=" + encodeURIComponent(tourId);
   return `<script src="${embedScriptUrl}"></script>`;
 }
