@@ -160,15 +160,48 @@ const frameworks = [
     icon: "⚛️",
     color: "oklch(0.6 0.2 220)",
     description: "Full React component library with hooks",
-    code: `import { TourProvider, useTour } from '@tourify/react';
+//     code: `import { TourProvider, useTour } from '@tourify/react';
+
+// function App() {
+//   const { start, next, previous } = useTour();
+  
+//   return (
+//     <TourProvider steps={steps}>
+//       <button onClick={start}>Start Tour</button>
+//     </TourProvider>
+//   );
+// }`,
+code: `import { useEffect } from 'react';
 
 function App() {
-  const { start, next, previous } = useTour();
+  useEffect(() => {
+    // Load Tourify script
+    const script = document.createElement('script');
+    script.src = 'https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize tour after script loads
+      if (window.tourify) {
+        window.tourify({
+          tourId: '42a01b6a-5807-46ab-a8a0-c4d725a3ed43',
+          apiUrl: 'https://embeddable-tour-web-app.vercel.app',
+          autoStart: true,
+          showAvatar: true
+        });
+      }
+    };
+    document.body.appendChild(script);
+
+    return () => {
+      // Cleanup
+      document.body.removeChild(script);
+    };
+  }, []);
   
   return (
-    <TourProvider steps={steps}>
-      <button onClick={start}>Start Tour</button>
-    </TourProvider>
+    <div>
+      Your content here...
+    </div
   );
 }`,
   },
@@ -178,14 +211,24 @@ function App() {
     color: "oklch(0.7 0.15 150)",
     description: "Vue 3 composition API support",
     code: `<template>
-  <TourProvider :steps="steps">
-    <button @click="startTour">Start Tour</button>
-  </TourProvider>
+  <div>
+    <button id="start-tour">Start Tour</button>
+  </div>
 </template>
 
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
+
 <script setup>
-import { useTour } from '@tourify/vue';
-const { startTour } = useTour();
+ document.getElementById('start-tour').onclick = function() {
+    tourify({
+      tourId: '42a01b6a-5807-46ab-a8a0-c4d725a3ed43',
+      apiUrl: 'https://embeddable-tour-web-app.vercel.app',
+      showAvatar: true,
+      onComplete: function() {
+        console.log('Tour completed!');
+      }
+    });
+  };
 </script>`,
   },
   {
@@ -213,21 +256,22 @@ export class AppComponent {
     color: "#eabe7b",
     description: "Plain JavaScript for any framework",
     code: `// Simple vanilla JS integration
-const tour = new Tourify({
-  steps: [
-    { target: '#feature-1', title: 'Feature 1' },
-    { target: '#feature-2', title: 'Feature 2' }
-  ]
-});
-
-// Start tour automatically
-tour.start();`,
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
+<script>
+  // Initialize tour when page loads
+  tourify({
+    tourId: '42a01b6a-5807-46ab-a8a0-c4d725a3ed43',
+    apiUrl: 'https://embeddable-tour-web-app.vercel.app',
+    autoStart: true,
+    showAvatar: true
+  });
+</script>`,
   },
 ];
 
 export function ExamplesSection() {
   const [copiedExample, setCopiedExample] = useState<string | null>(null);
-  const [activeExample, setActiveExample] = useState(0);
+  // const [activeExample, setActiveExample] = useState(0);
   const [activeFramework, setActiveFramework] = useState(0);
 
   const copyToClipboard = async (text: string, id: string) => {
