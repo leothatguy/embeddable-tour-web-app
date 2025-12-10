@@ -48,7 +48,7 @@ export default function TourStatsCard({ tourId }: TourStatsCardProps) {
 
   if (loading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[...Array(4)].map((_, i) => (
           <Card key={i}>
             <CardHeader>
@@ -72,7 +72,7 @@ export default function TourStatsCard({ tourId }: TourStatsCardProps) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
       <Card>
         <CardHeader>
           <CardTitle>Total Tours</CardTitle>
@@ -84,7 +84,7 @@ export default function TourStatsCard({ tourId }: TourStatsCardProps) {
 
       <Card>
         <CardHeader>
-          <CardTitle>Total Tours Completed</CardTitle>
+          <CardTitle>Tours Completed</CardTitle>
         </CardHeader>
         <CardContent className="text-3xl font-bold">
           {stats.totalToursCompleted}
