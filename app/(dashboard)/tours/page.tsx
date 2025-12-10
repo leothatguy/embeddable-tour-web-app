@@ -10,7 +10,7 @@ import CreatedTours from "../_components/created-tours";
 const Tours = () => {
   return (
     <div className="space-y-6">
-      <div className="flex justify-between flex-col md:flex-row gap-5 md:items-center">
+      <div className="flex justify-between flex-col sm:flex-row gap-5 sm:items-center">
         <DashboardTitle
           heading="Your Tours"
           description="Welcome to your Tour guide"

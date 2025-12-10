@@ -16,6 +16,7 @@ import DeleteTourModal from "./modals/delete-tour-modal";
 import {
   CopyIcon,
   EllipsisVertical,
+  Eye,
   PencilIcon,
   TrashIcon,
 } from "lucide-react";
@@ -42,6 +43,7 @@ const CreatedTours: React.FC = () => {
       try {
         const res = await fetch("/api/tours");
         const data = await res.json();
+        console.log("tour data", data);
         setTours(data.tours || []);
       } catch (error) {
         console.error(error);
@@ -61,16 +63,17 @@ const CreatedTours: React.FC = () => {
     toast.success("Embed code copied to clipboard!");
   };
 
-  if (loading) return <Loader itemName="your tours" />
+  if (loading) return <Loader itemName="your tours" />;
 
   if (!tours.length) return <EmptyState />;
 
   return (
-    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
+    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
       {tours.map((tour) => (
         <Card
           key={tour.id}
-          className="rounded-2xl p-4 shadow hover:shadow-lg transition relative"
+          onClick={() => handleViewDetails(tour.id!)}
+          className="rounded-2xl shadow hover:shadow-md backdrop-blur-2xl ease-in-out hover:bg-primary/10 relative hover:shadow-primary/20 cursor-pointer hover:border-primary transition-all duration-150"
         >
           <CardHeader className="flex flex-row justify-between items-start space-x-4">
             <CardTitle className="text-lg font-semibold">{tour.name}</CardTitle>
@@ -83,13 +86,13 @@ const CreatedTours: React.FC = () => {
               </DropdownMenuTrigger>
 
               <DropdownMenuContent align="end" className="bg-background">
+                <DropdownMenuItem onClick={() => handleViewDetails(tour.id!)}>
+                  <Eye /> View
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => handleEdit(tour.id!)}>
                   <PencilIcon /> Edit
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  className="text-red-600"
-                  onClick={() => setTourToDelete(tour)}
-                >
+                <DropdownMenuItem onClick={() => setTourToDelete(tour)}>
                   <TrashIcon /> Delete
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
@@ -101,16 +104,13 @@ const CreatedTours: React.FC = () => {
           </CardHeader>
 
           <CardContent className="space-y-2">
-            <p className="text-gray-600">
+            <p className="text-gray-300">
               {tour.description || "No description provided."}
             </p>
-            <p className="text-sm text-gray-500">{tour.steps.length} Steps</p>
           </CardContent>
 
-          <CardFooter className="flex justify-end">
-            <Button size="sm" onClick={() => handleViewDetails(tour.id!)}>
-              View Details
-            </Button>
+          <CardFooter className="flex justify-end gap-4 mt-auto">
+            <p className="text-sm text-gray-400">{tour.steps.length} Steps</p>
           </CardFooter>
         </Card>
       ))}
