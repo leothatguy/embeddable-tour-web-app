@@ -29,7 +29,7 @@
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Segoe UI", Roboto,
     "Helvetica Neue", Arial;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-
+  --font-montserrat: var(--font-montserrat);
   /* Custom animations */
   --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
@@ -77,7 +77,7 @@
   body {
     background: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
+    font-family: var(--font-montserrat);
     min-height: 100vh;
     width: 100vw;
     overflow-x: hidden;
@@ -141,7 +141,7 @@
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
