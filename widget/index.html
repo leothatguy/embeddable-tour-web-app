@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tour Widget - Dev</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/index.ts"></script>
+  <script type="module">
+    // Dev mode initialization
+    setTimeout(() => {
+      if (window.TourWidget) {
+        window.TourWidget.init({
+          tourId: 'demo-tour',
+          steps: [
+            {
+              id: 'step-1',
+              title: 'Welcome to Our Platform! 👋',
+              description: 'Let us show you around with a quick interactive tour. You can navigate using the buttons below.',
+              position: 'center'
+            },
+            {
+              id: 'step-2',
+              title: 'Step 2: Main Feature',
+              description: 'This is a key feature of our platform that helps you achieve your goals faster.',
+              position: 'center'
+            },
+            {
+              id: 'step-3',
+              title: 'Step 3: Navigation',
+              description: 'Use the navigation menu to explore different sections of the application.',
+              position: 'center'
+            },
+            {
+              id: 'step-4',
+              title: 'Step 4: Settings',
+              description: 'Customize your experience in the settings panel. Make it truly yours!',
+              position: 'center'
+            },
+            {
+              id: 'step-5',
+              title: 'All Set! 🎉',
+              description: 'You are ready to go! Click Finish to start exploring on your own.',
+              position: 'center'
+            }
+          ],
+          avatar: {
+            enabled: true,
+            position: 'right'
+          },
+          onAnalytics: (event) => {
+            console.log('Analytics:', event);
+          },
+          onComplete: () => {
+            console.log('Tour completed!');
+          },
+          onSkip: () => {
+            console.log('Tour skipped');
+          }
+        });
+      }
+    }, 100);
+  </script>
+</body>
+</html>
