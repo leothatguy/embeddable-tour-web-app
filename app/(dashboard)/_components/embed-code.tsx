@@ -15,9 +15,14 @@ interface EmbedCodeProps {
 export function EmbedCode({ tourId, tourName }: EmbedCodeProps) {
 	const [copiedTab, setCopiedTab] = useState<string | null>(null);
 
-	// Widget URL - update this when you deploy
+	// Widget CDN URL - Production deployment
 	const widgetUrl =
-		typeof window !== 'undefined' ? `${window.location.origin}/widget/tourify.umd.js` : '/widget/tourify.umd.js';
+		process.env.NEXT_PUBLIC_WIDGET_CDN_URL || 'https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js';
+
+	// API URL - Main application URL for fetching tour data
+	const apiUrl =
+		process.env.NEXT_PUBLIC_APP_URL ||
+		(typeof window !== 'undefined' ? window.location.origin : 'https://your-app.com');
 
 	const embedCodes = {
 		html: `<!-- Add Tourify Widget -->
@@ -26,6 +31,7 @@ export function EmbedCode({ tourId, tourName }: EmbedCodeProps) {
   // Initialize tour when page loads
   tourify({
     tourId: '${tourId}',
+    apiUrl: '${apiUrl}',
     autoStart: true,
     showAvatar: true
   });
@@ -42,6 +48,7 @@ export function EmbedCode({ tourId, tourName }: EmbedCodeProps) {
   document.getElementById('start-tour').onclick = function() {
     tourify({
       tourId: '${tourId}',
+      apiUrl: '${apiUrl}',
       showAvatar: true,
       onComplete: function() {
         console.log('Tour completed!');
@@ -63,6 +70,7 @@ function MyComponent() {
       if (window.tourify) {
         window.tourify({
           tourId: '${tourId}',
+          apiUrl: '${apiUrl}',
           autoStart: true,
           showAvatar: true
         });
@@ -87,6 +95,7 @@ import { tourify } from '@tourify/widget';
 
 tourify({
   tourId: '${tourId}',
+  apiUrl: '${apiUrl}',
   autoStart: true,
   showAvatar: true,
   onComplete: () => {
@@ -115,11 +124,10 @@ tourify({
 			</CardHeader>
 			<CardContent>
 				<Tabs defaultValue="html" className="w-full">
-					<TabsList className="grid w-full grid-cols-4">
+					<TabsList className="grid w-full grid-cols-3">
 						<TabsTrigger value="html">HTML</TabsTrigger>
 						<TabsTrigger value="manual">Manual</TabsTrigger>
 						<TabsTrigger value="react">React</TabsTrigger>
-						<TabsTrigger value="npm">NPM</TabsTrigger>
 					</TabsList>
 
 					<TabsContent value="html" className="space-y-4">
@@ -183,41 +191,23 @@ tourify({
 							Use this approach for React applications. The script loads dynamically and cleans up properly.
 						</p>
 					</TabsContent>
-
-					<TabsContent value="npm" className="space-y-4">
-						<div className="relative">
-							<pre className="bg-muted p-4 rounded-lg overflow-x-auto text-sm">
-								<code>{embedCodes.npm}</code>
-							</pre>
-							<Button
-								size="sm"
-								variant="outline"
-								className="absolute top-2 right-2"
-								onClick={() => handleCopy(embedCodes.npm, 'npm')}>
-								{copiedTab === 'npm' ? <CheckIcon className="w-4 h-4 mr-2" /> : <CopyIcon className="w-4 h-4 mr-2" />}
-								{copiedTab === 'npm' ? 'Copied!' : 'Copy'}
-							</Button>
-						</div>
-						<p className="text-sm text-muted-foreground">
-							Coming soon! Install via npm for better bundle optimization and TypeScript support.
-						</p>
-					</TabsContent>
 				</Tabs>
 
 				<div className="mt-6 p-4 bg-amber-50 dark:bg-amber-950 border border-amber-200 dark:border-amber-800 rounded-lg">
-					<h4 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">⚠️ Before You Embed</h4>
+					<h4 className="font-semibold text-amber-900 dark:text-amber-100 mb-2">⚠️ Configuration</h4>
 					<ul className="text-sm text-amber-800 dark:text-amber-200 space-y-1 list-disc list-inside">
 						<li>
-							Make sure you&apos;ve deployed the widget files to{' '}
-							<code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">/public/widget/</code>
+							Widget loads from CDN: <code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">{widgetUrl}</code>
 						</li>
 						<li>
-							Your tour will fetch data from{' '}
-							<code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">/api/tours/{tourId}</code>
+							Tour data fetched from:{' '}
+							<code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">
+								{apiUrl}/api/tours/{tourId}
+							</code>
 						</li>
 						<li>
-							Analytics will be sent to{' '}
-							<code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">/api/analytics/track</code>
+							Analytics sent to:{' '}
+							<code className="bg-amber-100 dark:bg-amber-900 px-1 rounded">{apiUrl}/api/analytics/track</code>
 						</li>
 					</ul>
 				</div>
