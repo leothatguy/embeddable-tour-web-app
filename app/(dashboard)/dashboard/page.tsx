@@ -36,7 +36,7 @@ export default function DashboardPage() {
     // show already loggedin toast
     useEffect(() => {
       if (loggedIn) {
-        toast.info(`You are already logged in as ${loggedIn}. Logout first to login to another account`)
+        toast.info(`You are already logged in as ${loggedIn}. Please log out first to log in to another account.`)
       }
     }, [loggedIn])
 
