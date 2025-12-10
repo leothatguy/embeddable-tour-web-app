@@ -6,10 +6,16 @@ import TourStatsCard from "../_components/tour-stats-card";
 import TourChart from "../_components/tour-chart";
 import EmptyState from "../_components/empty-state";
 import { TourFormValues } from "../_schemas/tour-schema";
+import Loader from "@/components/loader";
+import { useSearchParams } from "next/navigation";
+import { toast } from "sonner";
 
 export default function DashboardPage() {
   const [tours, setTours] = useState<TourFormValues[]>([]);
   const [loading, setLoading] = useState(true);
+    // find loggedIn query params
+    const searchParams = useSearchParams();
+    const loggedIn = searchParams.get("loggedIn");
 
   useEffect(() => {
     const fetchTours = async () => {
@@ -26,8 +32,15 @@ export default function DashboardPage() {
 
     fetchTours();
   }, []);
+  
+    // show already loggedin toast
+    useEffect(() => {
+      if (loggedIn) {
+        toast.info(`You are already logged in as ${loggedIn}. Please log out first to log in to another account.`)
+      }
+    }, [loggedIn])
 
-  if (loading) return <p>Loading dashboard...</p>;
+  if (loading) return <Loader itemName="dashboard" />
 
   return (
     <div className="space-y-6">
