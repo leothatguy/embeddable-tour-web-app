@@ -60,11 +60,21 @@ const TourChart = () => {
       try {
         // Fetch completion trend
         const trendResponse = await fetch('/api/analytics/completion-trend')
+
+        if (!trendResponse.ok) {
+          throw new Error('Failed to fetch completion trend')
+        }
+
         const trendData = await trendResponse.json()
         setCompletionTrend(trendData.trend)
 
         // Fetch step analytics
         const stepResponse = await fetch('/api/analytics/step-analytics')
+
+        if (!stepResponse.ok) {
+          throw new Error('Failed to fetch step analytics')
+        }
+
         const stepData = await stepResponse.json()
 
         // Transform to match chart format

@@ -23,6 +23,10 @@ export function useTours() {
       setLoading(true)
       const response = await fetch('/api/tours')
       const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch tours')
+      }
       
       const transformedTours = data.tours.map((tour: TourResponse) => ({
         id: tour.id,
@@ -82,6 +86,11 @@ export function useTourByID(id: string) {
     try {
       setLoading(true)
       const response = await fetch(`/api/tours/${id}`)
+
+      if (!response.ok) {
+        throw new Error('Failed to fetch tour')
+      }
+
       const data = await response.json() as { tour: TourResponse }
       
       const transformedTour = {
@@ -108,7 +117,7 @@ export function useTourByID(id: string) {
 
   useEffect(() => {
     fetchTour()
-  }, [fetchTour])
+  }, [])
 
   const deleteTour = async (id: string) => {
     try {

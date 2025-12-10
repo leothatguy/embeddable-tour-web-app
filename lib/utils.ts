@@ -13,6 +13,10 @@ export function isUUID(value: string) {
 
 
 export function getEmbedScript(tourId: string) {
+  if (!tourId || typeof tourId !== 'string') {
+    throw new Error("Invalid tour ID");
+  }
+
   if (!process.env.NEXT_PUBLIC_EMBED_SCRIPT_URL) {
     throw new Error("Embed Script URL is not defined");
   }

@@ -32,14 +32,10 @@ const EditTourPage: React.FC = () => {
   }
 
   return <CreateTourForm existingTour={{
-    id: tour.id,
-    name: tour.name,
-    description: tour.description,
+    ...tour,
     steps: tour.steps.map((step) => ({
-      id: step.id,
+      ...step,
       order: step.order_number,
-      title: step.title,
-      description: step.description,
     })),
   }} mode="edit" />;
 };

@@ -27,8 +27,10 @@ const ViewTourPage: React.FC = () => {
 
     if (deleted) {
       router.push("/tours");
+      setIsDeleteModalOpen(false);
     } else {
       toast.error("Failed to delete tour");
+      setIsDeleteModalOpen(false);
     }
   };
 
