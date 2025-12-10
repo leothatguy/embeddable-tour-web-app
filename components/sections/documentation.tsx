@@ -22,15 +22,15 @@ const codeSnippets = [
     description: "Add Tourify to your website with a single script tag.",
     language: "html",
     code: `<!-- Add this to your HTML head -->
-<script src="https://cdn.tourify.com/v1/tourify.min.js"></script>
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
 
 <!-- Initialize with your tour ID -->
 <script>
   Tourify.init({
     tourId: 'YOUR_TOUR_ID',
-    apiKey: 'YOUR_API_KEY',
-    theme: 'dark',
-    autoStart: true
+    apiUrl: 'YOUR_API_KEY',
+    autoStart: true,
+    showAvatar: true
   });
 </script>`,
   },
@@ -38,65 +38,92 @@ const codeSnippets = [
     title: "Advanced Configuration",
     description: "Full configuration options for custom behavior.",
     language: "javascript",
-    code: `const tour = new Tourify({
-  tourId: 'welcome-tour',
-  apiKey: 'your-api-key-here',
-  
-  // Customization
-  theme: {
-    primaryColor: '#f59e0b',
-    backgroundColor: '#0a0a0a',
-    textColor: '#ffffff'
-  },
-  
-  // Behavior
-  autoStart: false,
-  showProgress: true,
-  allowSkip: true,
-  
-  // Events
-  onStart: () => console.log('Tour started'),
-  onComplete: () => console.log('Tour completed'),
-  onStepChange: (step) => console.log('Step changed:', step),
-  
-  // Localization
-  locale: 'en',
-  strings: {
-    next: 'Continue',
-    back: 'Go Back',
-    skip: 'Skip Tour'
-  }
-});
+    //     code: `const tour = new Tourify({
+    //   tourId: 'welcome-tour',
+    //   apiKey: 'your-api-key-here',
 
-tour.start();`,
+    //   // Customization
+    //   theme: {
+    //     primaryColor: '#f59e0b',
+    //     backgroundColor: '#0a0a0a',
+    //     textColor: '#ffffff'
+    //   },
+
+    //   // Behavior
+    //   autoStart: false,
+    //   showProgress: true,
+    //   allowSkip: true,
+
+    //   // Events
+    //   onStart: () => console.log('Tour started'),
+    //   onComplete: () => console.log('Tour completed'),
+    //   onStepChange: (step) => console.log('Step changed:', step),
+
+    //   // Localization
+    //   locale: 'en',
+    //   strings: {
+    //     next: 'Continue',
+    //     back: 'Go Back',
+    //     skip: 'Skip Tour'
+    //   }
+    // });
+
+    // tour.start();`,
+    code: `<!-- Add Tourify Widget -->
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
+
+<!-- Add a button to start the tour -->
+<button id="start-tour">Start Tour</button>
+
+<!-- Initialize Tourify when the button is clicked-->
+<script>
+document.getElementById('start-tour').onclick = function() {
+  Tourify.init({
+    tourId: 'YOUR_TOUR_ID',
+    apiUrl: 'YOUR_API_KEY',
+    showAvatar: true,
+    onComplete: function() {
+        console.log('Tour completed!');
+      }
+  });
+  };
+</script>`,
   },
   {
     title: "React Integration",
     description: "Use our React component for seamless integration.",
     language: "jsx",
-    code: `import { TourProvider, TourStep } from '@tourify/react';
+    code: `import { useEffect } from 'react';;
 
 function App() {
+
+useEffect(() => {
+    // Load Tourify script
+    const script = document.createElement('script');
+    script.src = 'https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize tour after script loads
+      if (window.tourify) {
+        window.tourify({
+          tourId: 'YOUR_TOUR_ID',
+          apiUrl: 'YOUR_API_KEY',
+          autoStart: true,
+          showAvatar: true
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      // Cleanup
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
-    <TourProvider
-      tourId="welcome-tour"
-      apiKey="your-api-key"
-    >
-      <div className="app">
-        <TourStep
-          stepId="welcome"
-          title="Welcome to Our App"
-          content="Let's take a quick tour of the main features"
-          target="#welcome-button"
-        >
-          <button id="welcome-button">
-            Get Started
-          </button>
-        </TourStep>
-        
-        {/* Your app content */}
-      </div>
-    </TourProvider>
+    <div>
+      Your content here...
+    </div>
   );
 }`,
   },

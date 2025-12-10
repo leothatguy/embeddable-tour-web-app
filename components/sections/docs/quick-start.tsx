@@ -10,57 +10,123 @@ import Link from "next/link";
 
 const steps = [
   {
-    title: "Installation",
+    title: "Quick Installation",
     description: "Add Tourify to your project",
     icon: <Package className="h-6 w-6" />,
-    code: `npm install @tourify/react
-# or
-yarn add @tourify/react
-# or
-pnpm add @tourify/react`,
-    language: "bash",
+    //     code: `npm install @tourify/react
+    // # or
+    // yarn add @tourify/react
+    // # or
+    // pnpm add @tourify/react`,
+    //     language: "bash",
+    language: "html",
+    code: `<!-- Add this to your HTML head -->
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
+
+<!-- Initialize with your tour ID -->
+<script>
+  Tourify.init({
+    tourId: 'YOUR_TOUR_ID',
+    apiUrl: 'YOUR_API_KEY',
+    autoStart: true,
+    showAvatar: true
+  });
+</script>`,
   },
   {
-    title: "Configuration",
+    title: "Manual Configuration",
     description: "Set up your tour configuration",
     icon: <Settings className="h-6 w-6" />,
-    code: `import { TourProvider } from '@tourify/react';
+    //     code: `import { TourProvider } from '@tourify/react';
 
-function App() {
-  return (
-    <TourProvider
-      apiKey="your-api-key"
-      theme="dark"
-      showProgress={true}
-    >
-      {/* Your app */}
-    </TourProvider>
-  );
-}`,
-    language: "jsx",
+    // function App() {
+    //   return (
+    //     <TourProvider
+    //       apiKey="your-api-key"
+    //       theme="dark"
+    //       showProgress={true}
+    //     >
+    //       {/* Your app */}
+    //     </TourProvider>
+    //   );
+    // }`,
+    // language: "jsx",
+    code: `<!-- Add Tourify Widget -->
+<script src="https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js"></script>
+
+<!-- Add a button to start the tour -->
+<button id="start-tour">Start Tour</button>
+
+<!-- Initialize Tourify when the button is clicked-->
+<script>
+document.getElementById('start-tour').onclick = function() {
+  Tourify.init({
+    tourId: 'YOUR_TOUR_ID',
+    apiUrl: 'YOUR_API_KEY',
+    showAvatar: true,
+    onComplete: function() {
+        console.log('Tour completed!');
+      }
+  });
+  };
+</script>`,
+    language: "javascript",
   },
   {
-    title: "Add Steps",
-    description: "Define your tour steps",
+    title: "React Configuration",
+    description: "Add to a React component for seamless integration",
     icon: <Play className="h-6 w-6" />,
-    code: `import { TourStep } from '@tourify/react';
+    //     code: `import { TourStep } from '@tourify/react';
+
+    // function App() {
+    //   return (
+    //     <>
+    //       <TourStep
+    //         stepId="welcome"
+    //         title="Welcome!"
+    //         content="Let's explore the app together"
+    //         target="#get-started"
+    //       >
+    //         <button id="get-started">
+    //           Get Started
+    //         </button>
+    //       </TourStep>
+
+    //       {/* More steps */}
+    //     </>
+    //   );
+    // }`,
+    code: `import { useEffect } from 'react';;
 
 function App() {
+
+useEffect(() => {
+    // Load Tourify script
+    const script = document.createElement('script');
+    script.src = 'https://embeddable-tour-web-app-2ltc.vercel.app/tourify.umd.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize tour after script loads
+      if (window.tourify) {
+        window.tourify({
+          tourId: 'YOUR_TOUR_ID',
+          apiUrl: 'YOUR_API_KEY',
+          autoStart: true,
+          showAvatar: true
+        });
+      }
+    };
+    document.body.appendChild(script);
+    return () => {
+      // Cleanup
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
-    <>
-      <TourStep
-        stepId="welcome"
-        title="Welcome!"
-        content="Let's explore the app together"
-        target="#get-started"
-      >
-        <button id="get-started">
-          Get Started
-        </button>
-      </TourStep>
-      
-      {/* More steps */}
-    </>
+    <div>
+      Your content here...
+    </div>
   );
 }`,
     language: "jsx",
