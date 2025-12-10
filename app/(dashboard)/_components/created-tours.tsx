@@ -68,7 +68,7 @@ const CreatedTours: React.FC = () => {
   const handleCopyEmbed = (tourId: string) => {
     const embedCode = getEmbedScript(tourId); 
     navigator.clipboard.writeText(embedCode);
-    alert("Embed code copied to clipboard!");
+    toast.success("Embed code copied to clipboard!");
   };
 
   if (loading) return <div>Loading...</div>;
