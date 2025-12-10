@@ -40,7 +40,7 @@ const AppSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader className="pt-10 pb-7">
+      <SidebarHeader className="pt-5 pb-7">
         <div className="flex justify-between items-center">
           <Logo />
           <SidebarTrigger />

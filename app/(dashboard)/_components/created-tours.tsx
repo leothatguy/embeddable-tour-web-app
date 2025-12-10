@@ -43,7 +43,7 @@ const CreatedTours: React.FC = () => {
       try {
         const res = await fetch("/api/tours");
         const data = await res.json();
-        console.log("tour data", data);
+        // console.log("tour data", data);
         setTours(data.tours || []);
       } catch (error) {
         console.error(error);

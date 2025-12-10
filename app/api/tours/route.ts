@@ -7,7 +7,7 @@ import { getUserTours, createTour } from "@/lib/api/tours";
 export async function GET() {
   try {
     const tours = await getUserTours();
-    console.log("Tours:", tours);
+    // console.log("Tours:", tours);
     return NextResponse.json({ tours }, { status: 200 });
   } catch (error) {
     console.error("Error in GET /api/tours:", error);

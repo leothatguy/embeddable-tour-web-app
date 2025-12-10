@@ -10,7 +10,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <AppSidebar />
         <div className="w-full">
           <Header />
-          <main className="px-5 w-full pb-10">{children}</main>
+          <main className="px-5 w-full py-10">{children}</main>
         </div>
       </SidebarProvider>
     </AuthGuard>

@@ -96,7 +96,7 @@ export function StandardHero({
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 tracking-tight"
+            className="text-4xl md:text-5xl lg:text-6xl leading-relaxed font-bold mb-6 tracking-tight"
           >
             {title}
           </motion.h1>
