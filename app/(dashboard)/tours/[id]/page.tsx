@@ -8,6 +8,8 @@ import DeleteTourModal from "../../_components/modals/delete-tour-modal";
 import { StepFormValues, TourFormValues } from "../../_schemas/tour-schema";
 import { ArrowLeft, CopyIcon, PencilIcon, TrashIcon } from "lucide-react";
 import { toast } from "sonner";
+import { getEmbedScript } from "@/lib/utils";
+import Loader from "@/components/loader";
 
 // Type for API response
 interface TourApiResponse {
@@ -76,9 +78,8 @@ const ViewTourPage: React.FC = () => {
 
   const handleCopyEmbed = () => {
     if (!tour?.id) return;
-    navigator.clipboard.writeText(
-      `<script src="https://your-app.com/embed/${tour.id}.js"></script>`
-    );
+    const embedCode = getEmbedScript(tour.id);
+    navigator.clipboard.writeText(embedCode);
     toast.success("Embed code copied to clipboard!");
   };
 
@@ -87,7 +88,7 @@ const ViewTourPage: React.FC = () => {
     router.push(`/tours/edit/${tour.id}`);
   };
 
-  if (loading) return <p className="text-center mt-10">Loading tour...</p>;
+  if (loading) return <Loader itemName="tour details" />;
   if (!tour)
     return <p className="text-center mt-10 text-red-500">Tour not found</p>;
 
