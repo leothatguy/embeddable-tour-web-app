@@ -15,6 +15,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import Logo from "@/components/logo";
 import LogoutModal from "./modals/logout-modal";
@@ -39,8 +40,11 @@ const AppSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <Logo />
+      <SidebarHeader className="pt-5 pb-7">
+        <div className="flex justify-between items-center">
+          <Logo />
+          <SidebarTrigger />
+        </div>
       </SidebarHeader>
 
       <SidebarContent>
