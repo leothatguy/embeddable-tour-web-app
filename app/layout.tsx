@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     siteName: "Tourify",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/desktop view.jpg",
         width: 1200,
         height: 630,
         alt: "Tourify - Product Tours Made Easy",
@@ -67,7 +67,7 @@ export const metadata: Metadata = {
     title: "Tourify - Embeddable Product Tours",
     description:
       "Boost user adoption with interactive, embeddable product tours. No coding required to build, easy to integrate.",
-    images: ["/twitter-image.jpg"],
+    images: ["/images/desktop view.jpg"],
     creator: "@tourify",
   },
   icons: {

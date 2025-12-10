@@ -198,7 +198,7 @@ export const Loader: React.FC<LoaderProps> = ({
 
                 {
                     !!itemName && (
-                        <p className="text-sm animate-pulse mt-36">Loading {itemName}</p>
+                        <p className="text-sm animate-pulse mt-36 text-nowrap">Loading {itemName}</p>
                     )
                 }
             </div>

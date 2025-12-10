@@ -1,12 +1,16 @@
-import React from "react";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 
 const Logo = () => {
   return (
     <div className="flex items-center gap-2">
       <div className="relative ">
-        {/* <div className="absolute inset-0 accent-bg rounded-lg blur-xl opacity-50" /> */}
-        <Sparkles className="relative h-8 w-8 accent-text" />
+        <Image
+          src="/logo.png"
+          alt="Logo"
+          width={500}
+          height={500}
+          className="w-12 h-12"
+        />
       </div>
       <span className="text-2xl font-bold gradient-text">Tourify</span>
     </div>

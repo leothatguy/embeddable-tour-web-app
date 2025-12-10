@@ -109,7 +109,7 @@ export default function LoginPageContent() {
 
         <Button
           type="submit"
-          className="w-full h-11 bg-amber-400 hover:accent-bg text-black font-medium"
+          className="w-full h-11 text-black font-medium"
           disabled={loading}
         >
           {loading ? (
@@ -130,7 +130,7 @@ export default function LoginPageContent() {
         </span>
         <Link
           href="/signup"
-          className="font-medium text-amber-600 hover:text-amber-700"
+          className="font-medium text-primary hover:text-primary/80"
         >
           Sign up
         </Link>

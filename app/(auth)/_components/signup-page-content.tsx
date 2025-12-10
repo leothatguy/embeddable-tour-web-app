@@ -175,7 +175,7 @@ export default function SignupPageContent() {
 
         <Button
           type="submit"
-          className="w-full h-11 bg-amber-400 hover:accent-bg text-black font-medium"
+          className="w-full h-11 text-black font-medium"
           disabled={loading || success}
         >
           {loading ? (
@@ -194,7 +194,7 @@ export default function SignupPageContent() {
         <span className="text-muted-foreground">Already have an account? </span>
         <Link
           href="/login"
-          className="font-medium text-amber-600 hover:text-amber-700"
+          className="font-medium text-primary hover:text-primary/80"
         >
           Log in
         </Link>
